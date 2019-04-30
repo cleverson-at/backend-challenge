@@ -1,4 +1,4 @@
-package br.com.widesoftware.backendchallenge;
+package com.widesoftware.backendchallenge;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

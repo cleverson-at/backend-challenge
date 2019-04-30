@@ -1,4 +1,4 @@
-package br.com.widesoftware.backendchallenge;
+package com.widesoftware.backendchallenge;
 
 /**
  * Hello world!
