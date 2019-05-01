@@ -5,6 +5,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import com.widesoftware.backendchallenge.builders.SongsBuilder;
@@ -44,6 +45,8 @@ public class GetSuggestedSongsSteps {
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		
+		this.getTemperatureGateway = Mockito.mock(GetTemperatureGateway.class);
+		
 		this.temperatureToSongCategory = new TemperatureToSongCategory();
 		this.getSuggestedSongs = new GetSuggestedSongs(this.getTemperatureGateway,
 				this.temperatureToSongCategory,
@@ -61,21 +64,21 @@ public class GetSuggestedSongsSteps {
 	public void theTemperatureIsGreaterThanOrEqualTo15DegreesCelsiusAndLowerThanOrEqualTo20() throws Throwable {
 		when(getTemperatureGateway.execute(CITY_NAME)).thenReturn(CLASSIC_TEMPERATURE);
 		when(getSongsGateway.execute(SongsCategory.CLASSIC)).thenReturn(new SongsBuilder()
-				.withRockSuggestedSongs().build());
+				.withClassicSuggestedSongs().build());
 	}
 	
 	@Given("^the temperature is greater than or equal to 21 degrees Celsius and lower than or equal to 30$")
 	public void theTemperatureIsGreaterThanOrEqualTo21DegreesCelsiusAndLowerThanOrEqualTo30() throws Throwable {
 		when(getTemperatureGateway.execute(CITY_NAME)).thenReturn(HIP_HOP_TEMPERATURE);
 		when(getSongsGateway.execute(SongsCategory.HIP_HOP)).thenReturn(new SongsBuilder()
-				.withRockSuggestedSongs().build());
+				.withHipHopSuggestedSongs().build());
 	}
 	
 	@Given("^the temperature is greater than 30 degrees Celsius$")
 	public void theTemperatureIsGreaterThan30DegreesCelsius() throws Throwable {
 		when(getTemperatureGateway.execute(CITY_NAME)).thenReturn(PARTY_TEMPERATURE);
 		when(getSongsGateway.execute(SongsCategory.PARTY)).thenReturn(new SongsBuilder()
-				.withRockSuggestedSongs().build());
+				.withPartySuggestedSongs().build());
 	}
 	
 	@When("^I check the song suggestions$")

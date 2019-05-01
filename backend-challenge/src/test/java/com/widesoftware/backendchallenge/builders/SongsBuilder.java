@@ -20,19 +20,19 @@ public class SongsBuilder {
 	
 	public SongsBuilder withClassicSuggestedSongs() {
 		this.category = SongsCategory.CLASSIC;
-		this.names.add("Highway to Hell");
+		this.names.add("Symphony No 5");
 		return this;
 	}
 	
 	public SongsBuilder withHipHopSuggestedSongs() {
 		this.category = SongsCategory.HIP_HOP;
-		this.names.add("Highway to Hell");
+		this.names.add("Lose Yourself");
 		return this;
 	}
 	
 	public SongsBuilder withPartySuggestedSongs() {
 		this.category = SongsCategory.PARTY;
-		this.names.add("Highway to Hell");
+		this.names.add("Yeah!");
 		return this;
 	}
 	
