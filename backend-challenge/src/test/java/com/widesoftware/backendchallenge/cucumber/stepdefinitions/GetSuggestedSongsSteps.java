@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import com.widesoftware.backendchallenge.builders.SongsBuilder;
+import com.widesoftware.backendchallenge.domain.TemperatureToSongCategory;
 import com.widesoftware.backendchallenge.entities.Songs;
 import com.widesoftware.backendchallenge.entities.SongsCategory;
 import com.widesoftware.backendchallenge.gateways.GetSongsGateway;
@@ -33,6 +34,8 @@ public class GetSuggestedSongsSteps {
 	@Mock private GetTemperatureGateway getTemperatureGateway;
 	@Mock private GetSongsGateway getSongsGateway;
 	
+	private TemperatureToSongCategory temperatureToSongCategory;
+	
 	private GetSuggestedSongs getSuggestedSongs;
 	
 	private Songs suggestedSongs;
@@ -41,34 +44,37 @@ public class GetSuggestedSongsSteps {
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		
-		this.getSuggestedSongs = new GetSuggestedSongs();
+		this.temperatureToSongCategory = new TemperatureToSongCategory();
+		this.getSuggestedSongs = new GetSuggestedSongs(this.getTemperatureGateway,
+				this.temperatureToSongCategory,
+				this.getSongsGateway);
 	}
 	
 	@Given("^the temperature is bellow 15 degrees Celsius$")
 	public void theTemperatureIsBellow15DegreesCelsius() throws Throwable {
 		when(getTemperatureGateway.execute(CITY_NAME)).thenReturn(ROCK_TEMPERATURE);
-		when(getSongsGateway.execute(CITY_NAME)).thenReturn(new SongsBuilder()
+		when(getSongsGateway.execute(SongsCategory.ROCK)).thenReturn(new SongsBuilder()
 				.withRockSuggestedSongs().build());
 	}
 
 	@Given("^the temperature is greater than or equal to 15 degrees Celsius and lower than or equal to 20$")
 	public void theTemperatureIsGreaterThanOrEqualTo15DegreesCelsiusAndLowerThanOrEqualTo20() throws Throwable {
 		when(getTemperatureGateway.execute(CITY_NAME)).thenReturn(CLASSIC_TEMPERATURE);
-		when(getSongsGateway.execute(CITY_NAME)).thenReturn(new SongsBuilder()
+		when(getSongsGateway.execute(SongsCategory.CLASSIC)).thenReturn(new SongsBuilder()
 				.withRockSuggestedSongs().build());
 	}
 	
 	@Given("^the temperature is greater than or equal to 21 degrees Celsius and lower than or equal to 30$")
 	public void theTemperatureIsGreaterThanOrEqualTo21DegreesCelsiusAndLowerThanOrEqualTo30() throws Throwable {
 		when(getTemperatureGateway.execute(CITY_NAME)).thenReturn(HIP_HOP_TEMPERATURE);
-		when(getSongsGateway.execute(CITY_NAME)).thenReturn(new SongsBuilder()
+		when(getSongsGateway.execute(SongsCategory.HIP_HOP)).thenReturn(new SongsBuilder()
 				.withRockSuggestedSongs().build());
 	}
 	
 	@Given("^the temperature is greater than 30 degrees Celsius$")
 	public void theTemperatureIsGreaterThan30DegreesCelsius() throws Throwable {
 		when(getTemperatureGateway.execute(CITY_NAME)).thenReturn(PARTY_TEMPERATURE);
-		when(getSongsGateway.execute(CITY_NAME)).thenReturn(new SongsBuilder()
+		when(getSongsGateway.execute(SongsCategory.PARTY)).thenReturn(new SongsBuilder()
 				.withRockSuggestedSongs().build());
 	}
 	
