@@ -11,9 +11,12 @@ import lombok.experimental.Accessors;
 @ToString
 @EqualsAndHashCode
 @Accessors(chain=true)
-public class CategoryDTO {
+public class PlaylistsDTO {
 	@Getter @Setter private String href;
-	@Getter @Setter private List<IconDTO> icons;
-	@Getter @Setter private String id;
-	@Getter @Setter private String name;
+	@Getter @Setter private List<PlaylistDTO> items;
+	@Getter @Setter private Integer limit;
+	@Getter @Setter private String next;
+	@Getter @Setter private Integer offset;
+	@Getter @Setter private String previous;
+	@Getter @Setter private Integer total;
 }

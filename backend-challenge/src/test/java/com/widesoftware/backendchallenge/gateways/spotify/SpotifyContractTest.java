@@ -18,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.widesoftware.backendchallenge.gateways.spotify.dtos.AuthenticationDTO;
 import com.widesoftware.backendchallenge.gateways.spotify.dtos.CategoryDTO;
+import com.widesoftware.backendchallenge.gateways.spotify.dtos.PlaylistsDTO;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
@@ -42,14 +43,11 @@ public class SpotifyContractTest {
 	@Value("${authentication.client.secret}")
 	@Getter private String clientSecret;
 	
-	@Value("${endpoints.baseurl}")
-	@Getter private String baseUrl;
-	
 	@Value("${endpoints.resource.browse.category}")
 	@Getter private String getCategoryEndpoint;
 	
-	@Value("${endpoints.resource.playlist}")
-	@Getter private String getPlaylistsEndpoint;
+	@Value("${endpoints.resource.browse.category.playlists}")
+	@Getter private String getCategoryPlaylistsEndpoint;
 	
 	@Value("${endpoints.resource.playlist.tracks}")
 	@Getter private String getPlaylistTracksEndpoint;
@@ -101,13 +99,7 @@ public class SpotifyContractTest {
 	@Test
 	public void shouldExistRockCategory() {
 		String url = MessageFormat.format(getCategoryEndpoint, SpotifySongsCategory.ROCK);
-		
-		HttpHeaders headers = new HttpHeaders();
-		headers.setBearerAuth(this.bearerToken);
-		HttpEntity<String> entity = new HttpEntity<>(headers);
-		
-		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<CategoryDTO> response = restTemplate.exchange(url, HttpMethod.GET, entity, CategoryDTO.class);
+		ResponseEntity<CategoryDTO> response = spotifyGetCategory(url);
 		
 		assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
 	}
@@ -115,13 +107,7 @@ public class SpotifyContractTest {
 	@Test
 	public void shouldExistClassicalCategory() {
 		String url = MessageFormat.format(getCategoryEndpoint, SpotifySongsCategory.CLASSICAL);
-		
-		HttpHeaders headers = new HttpHeaders();
-		headers.setBearerAuth(this.bearerToken);
-		HttpEntity<String> entity = new HttpEntity<>(headers);
-		
-		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<CategoryDTO> response = restTemplate.exchange(url, HttpMethod.GET, entity, CategoryDTO.class);
+		ResponseEntity<CategoryDTO> response = spotifyGetCategory(url);
 		
 		assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
 	}
@@ -129,13 +115,7 @@ public class SpotifyContractTest {
 	@Test
 	public void shouldExistHipHopCategory() {
 		String url = MessageFormat.format(getCategoryEndpoint, SpotifySongsCategory.HIP_HOP);
-		
-		HttpHeaders headers = new HttpHeaders();
-		headers.setBearerAuth(this.bearerToken);
-		HttpEntity<String> entity = new HttpEntity<>(headers);
-		
-		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<CategoryDTO> response = restTemplate.exchange(url, HttpMethod.GET, entity, CategoryDTO.class);
+		ResponseEntity<CategoryDTO> response = spotifyGetCategory(url);
 		
 		assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
 	}
@@ -143,7 +123,12 @@ public class SpotifyContractTest {
 	@Test
 	public void shouldExistPartyCategory() {
 		String url = MessageFormat.format(getCategoryEndpoint, SpotifySongsCategory.PARTY);
+		ResponseEntity<CategoryDTO> response = spotifyGetCategory(url);
 		
+		assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
+	}
+	
+	private ResponseEntity<CategoryDTO> spotifyGetCategory(String url) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setBearerAuth(this.bearerToken);
 		HttpEntity<String> entity = new HttpEntity<>(headers);
@@ -151,7 +136,26 @@ public class SpotifyContractTest {
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<CategoryDTO> response = restTemplate.exchange(url, HttpMethod.GET, entity, CategoryDTO.class);
 		
+		return response;
+	}
+	
+	@Test
+	public void shouldExistsGetPlaylist() {
+		String url = MessageFormat.format(getCategoryPlaylistsEndpoint, SpotifySongsCategory.PARTY);
+		ResponseEntity<PlaylistsDTO> response = spotifyGetPlaylist(url);
+		
 		assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
+	}
+	
+	private ResponseEntity<PlaylistsDTO> spotifyGetPlaylist(String url) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setBearerAuth(this.bearerToken);
+		HttpEntity<String> entity = new HttpEntity<>(headers);
+		
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<PlaylistsDTO> response = restTemplate.exchange(url, HttpMethod.GET, entity, PlaylistsDTO.class);
+		
+		return response;
 	}
 
 }

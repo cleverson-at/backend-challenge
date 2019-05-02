@@ -1,19 +1,21 @@
 package com.widesoftware.backendchallenge.gateways.spotify.dtos;
 
-import java.util.List;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
+import com.widesoftware.backendchallenge.gateways.spotify.dtos.ExternalUrlsDTO;
+
 @ToString
 @EqualsAndHashCode
 @Accessors(chain=true)
-public class CategoryDTO {
+public class OwnerDTO {
+	@Getter @Setter private String display_name;
+	@Getter @Setter private ExternalUrlsDTO external_urls;
 	@Getter @Setter private String href;
-	@Getter @Setter private List<IconDTO> icons;
 	@Getter @Setter private String id;
-	@Getter @Setter private String name;
+	@Getter @Setter private String type;
+	@Getter @Setter private String uri;
 }
