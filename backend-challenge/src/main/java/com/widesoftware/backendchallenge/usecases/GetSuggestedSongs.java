@@ -6,7 +6,12 @@ import com.widesoftware.backendchallenge.entities.SongsCategory;
 import com.widesoftware.backendchallenge.gateways.GetSongsGateway;
 import com.widesoftware.backendchallenge.gateways.GetTemperatureGateway;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;;
+
 public class GetSuggestedSongs {
+	
+	private Logger logger = LoggerFactory.getLogger(GetSuggestedSongs.class);
 	
 	private GetTemperatureGateway getTemperatureGateway;
 	private GetSongsGateway getSongsGateway;
@@ -28,6 +33,8 @@ public class GetSuggestedSongs {
 		SongsCategory songsCategory = temperatureToSongCategory.convert(temperature);
 		Songs songs = getSongsGateway.execute(songsCategory);
 		
+		logger.info("Songs suggestion request received for {} city. "
+				+ "Suggested song are: {}", cityName, songs);
 		return songs;
 	}
 }

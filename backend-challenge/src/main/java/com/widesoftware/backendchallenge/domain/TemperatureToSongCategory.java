@@ -1,21 +1,31 @@
 package com.widesoftware.backendchallenge.domain;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.widesoftware.backendchallenge.entities.SongsCategory;
 
 public class TemperatureToSongCategory {
 	
+	private Logger logger = LoggerFactory.getLogger(TemperatureToSongCategory.class);
+	
 	public SongsCategory convert(int temperature) {
+		SongsCategory songsCategory;
 		if (temperature < 15) {
-			return SongsCategory.ROCK;
+			songsCategory = SongsCategory.ROCK;
 		} else if (isInBetween(temperature, 15, 20)) {
-			return SongsCategory.CLASSIC;
+			songsCategory = SongsCategory.CLASSIC;
 		} else if (isInBetween(temperature, 21, 30)) {
-			return SongsCategory.HIP_HOP;
+			songsCategory = SongsCategory.HIP_HOP;
 		} else if (temperature > 30) {
-			return SongsCategory.PARTY;
+			songsCategory = SongsCategory.PARTY;
 		} else {
 			throw new IllegalArgumentException();
 		}
+		
+		logger.info("Temperature convertion to song category request received. "
+				+ "Temperture: {} -> Song category: {}.", temperature, songsCategory);
+		return songsCategory;
 	}
 	
 	private boolean isInBetween(int value, int lowerBound, int upperBound) {
