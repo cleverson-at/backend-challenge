@@ -179,15 +179,33 @@ public class SpotifyContractTest {
 		
 		if (!playlistsResponse.getBody().getPlaylists().getItems().isEmpty()) {
 			String playlistId = playlistsResponse.getBody().getPlaylists().getItems().get(0).getId();
-					
-			String url = MessageFormat.format(getPlaylistTracksEndpoint, playlistId);
-			ResponseEntity<PlaylistTracksDTO> response = spotifyGetPlaylistTracks(url);
+			ResponseEntity<PlaylistTracksDTO> response = spotifyGetPlaylistTracks(playlistId);
 			
 			assertThat(response.getStatusCode(), is(equalTo(HttpStatus.OK)));			
 		}
 	}
 	
-	private ResponseEntity<PlaylistTracksDTO> spotifyGetPlaylistTracks(String url) {
+	@Test
+	public void shouldUnmarshalTrackNames() {
+		ResponseEntity<CategoryPlaylistsDTO> playlistsResponse = spotifyGetPlaylist(SpotifySongsCategory.PARTY);
+		assertThat(playlistsResponse.getStatusCode(), equalTo(HttpStatus.OK));
+		
+		if (!playlistsResponse.getBody().getPlaylists().getItems().isEmpty()) {
+			String playlistId = playlistsResponse.getBody().getPlaylists().getItems().get(0).getId();
+			ResponseEntity<PlaylistTracksDTO> response = spotifyGetPlaylistTracks(playlistId);
+			
+			assertThat(response.getStatusCode(), is(equalTo(HttpStatus.OK)));
+			
+			assertThat(response.getBody().getItems(), is(notNullValue()));
+			if (!response.getBody().getItems().isEmpty()) {
+				assertThat(response.getBody().getItems().get(0).getTrack().getName(), is(notNullValue()));
+			}
+		}
+	}
+	
+	private ResponseEntity<PlaylistTracksDTO> spotifyGetPlaylistTracks(String playlistId) {
+		String url = MessageFormat.format(getPlaylistTracksEndpoint, playlistId);
+		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setBearerAuth(this.bearerToken);
 		HttpEntity<String> entity = new HttpEntity<>(headers);
