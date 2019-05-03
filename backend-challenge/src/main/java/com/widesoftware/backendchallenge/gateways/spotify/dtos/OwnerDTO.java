@@ -6,8 +6,6 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
-import com.widesoftware.backendchallenge.gateways.spotify.dtos.ExternalUrlsDTO;
-
 @ToString
 @EqualsAndHashCode
 @Accessors(chain=true)
