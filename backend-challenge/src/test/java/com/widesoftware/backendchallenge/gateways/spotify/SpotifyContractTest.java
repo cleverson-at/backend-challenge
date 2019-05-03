@@ -33,22 +33,22 @@ import java.text.MessageFormat;
 @RunWith(SpringRunner.class)
 public class SpotifyContractTest {
 
-	@Value("${endpoints.authenticate}")
+	@Value("${spotify.endpoints.authenticate}")
 	private String authenticate;
 	
-	@Value("${authentication.client.id}")
+	@Value("${spotify.authentication.client.id}")
 	private String clientId;
 	
-	@Value("${authentication.client.secret}")
+	@Value("${spotify.authentication.client.secret}")
 	private String clientSecret;
 	
-	@Value("${endpoints.resource.browse.category}")
+	@Value("${spotify.endpoints.resource.browse.category}")
 	private String getCategoryEndpoint;
 	
-	@Value("${endpoints.resource.browse.category.playlists}")
+	@Value("${spotify.endpoints.resource.browse.category.playlists}")
 	private String getCategoryPlaylistsEndpoint;
 	
-	@Value("${endpoints.resource.playlist.tracks}")
+	@Value("${spotify.endpoints.resource.playlist.tracks}")
 	private String getPlaylistTracksEndpoint;
 	
 	private String bearerToken;
