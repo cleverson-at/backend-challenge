@@ -142,13 +142,26 @@ public class SpotifyContractTest {
 	
 	@Test
 	public void shouldExistsGetPlaylist() {
-		String url = MessageFormat.format(getCategoryPlaylistsEndpoint, SpotifySongsCategory.PARTY);
-		ResponseEntity<CategoryPlaylistsDTO> response = spotifyGetPlaylist(url);
+		ResponseEntity<CategoryPlaylistsDTO> response = spotifyGetPlaylist(SpotifySongsCategory.PARTY);
 		
 		assertThat(response.getStatusCode(), is(equalTo(HttpStatus.OK)));
 	}
 	
-	private ResponseEntity<CategoryPlaylistsDTO> spotifyGetPlaylist(String url) {
+	@Test
+	public void shouldUnmarshalPalylistId() {
+		ResponseEntity<CategoryPlaylistsDTO> response = spotifyGetPlaylist(SpotifySongsCategory.PARTY);
+		
+		assertThat(response.getStatusCode(), is(equalTo(HttpStatus.OK)));
+		
+		assertThat(response.getBody().getPlaylists().getItems(), is(notNullValue()));
+		if (!response.getBody().getPlaylists().getItems().isEmpty()) {
+			assertThat(response.getBody().getPlaylists().getItems().get(0).getId(), is(notNullValue()));
+		}
+	}
+	
+	private ResponseEntity<CategoryPlaylistsDTO> spotifyGetPlaylist(SpotifySongsCategory songCategory) {
+		String url = MessageFormat.format(getCategoryPlaylistsEndpoint, songCategory);
+		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setBearerAuth(this.bearerToken);
 		HttpEntity<String> entity = new HttpEntity<>(headers);
@@ -161,10 +174,9 @@ public class SpotifyContractTest {
 	
 	@Test
 	public void shouldExistsGetPlaylistTracks() {
-		String playlistsUrl = MessageFormat.format(getCategoryPlaylistsEndpoint, SpotifySongsCategory.PARTY);
-		ResponseEntity<CategoryPlaylistsDTO> playlistsResponse = spotifyGetPlaylist(playlistsUrl);
-		
+		ResponseEntity<CategoryPlaylistsDTO> playlistsResponse = spotifyGetPlaylist(SpotifySongsCategory.PARTY);
 		assertThat(playlistsResponse.getStatusCode(), equalTo(HttpStatus.OK));
+		
 		if (!playlistsResponse.getBody().getPlaylists().getItems().isEmpty()) {
 			String playlistId = playlistsResponse.getBody().getPlaylists().getItems().get(0).getId();
 					
