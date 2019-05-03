@@ -18,7 +18,8 @@ import org.springframework.web.client.RestTemplate;
 
 import com.widesoftware.backendchallenge.gateways.spotify.dtos.AuthenticationDTO;
 import com.widesoftware.backendchallenge.gateways.spotify.dtos.CategoryDTO;
-import com.widesoftware.backendchallenge.gateways.spotify.dtos.PlaylistsDTO;
+import com.widesoftware.backendchallenge.gateways.spotify.dtos.CategoryPlaylistsDTO;
+import com.widesoftware.backendchallenge.gateways.spotify.dtos.PlaylistTracksDTO;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
@@ -142,18 +143,45 @@ public class SpotifyContractTest {
 	@Test
 	public void shouldExistsGetPlaylist() {
 		String url = MessageFormat.format(getCategoryPlaylistsEndpoint, SpotifySongsCategory.PARTY);
-		ResponseEntity<PlaylistsDTO> response = spotifyGetPlaylist(url);
+		ResponseEntity<CategoryPlaylistsDTO> response = spotifyGetPlaylist(url);
 		
 		assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
 	}
 	
-	private ResponseEntity<PlaylistsDTO> spotifyGetPlaylist(String url) {
+	private ResponseEntity<CategoryPlaylistsDTO> spotifyGetPlaylist(String url) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setBearerAuth(this.bearerToken);
 		HttpEntity<String> entity = new HttpEntity<>(headers);
 		
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<PlaylistsDTO> response = restTemplate.exchange(url, HttpMethod.GET, entity, PlaylistsDTO.class);
+		ResponseEntity<CategoryPlaylistsDTO> response = restTemplate.exchange(url, HttpMethod.GET, entity, CategoryPlaylistsDTO.class);
+		
+		return response;
+	}
+	
+	@Test
+	public void shouldExistsGetPlaylistTracks() {
+		String playlistsUrl = MessageFormat.format(getCategoryPlaylistsEndpoint, SpotifySongsCategory.PARTY);
+		ResponseEntity<CategoryPlaylistsDTO> playlistsResponse = spotifyGetPlaylist(playlistsUrl);
+		
+		assertThat(playlistsResponse.getStatusCode(), equalTo(HttpStatus.OK));
+		if (!playlistsResponse.getBody().getPlaylists().getItems().isEmpty()) {
+			String playlistId = playlistsResponse.getBody().getPlaylists().getItems().get(0).getId();
+					
+			String url = MessageFormat.format(getPlaylistTracksEndpoint, playlistId);
+			ResponseEntity<PlaylistTracksDTO> response = spotifyGetPlaylistTracks(url);
+			
+			assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));			
+		}
+	}
+	
+	private ResponseEntity<PlaylistTracksDTO> spotifyGetPlaylistTracks(String url) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setBearerAuth(this.bearerToken);
+		HttpEntity<String> entity = new HttpEntity<>(headers);
+		
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<PlaylistTracksDTO> response = restTemplate.exchange(url, HttpMethod.GET, entity, PlaylistTracksDTO.class);
 		
 		return response;
 	}
