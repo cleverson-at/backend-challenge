@@ -97,37 +97,39 @@ public class SpotifyContractTest {
 	
 	@Test
 	public void shouldExistRockCategory() {
-		String url = MessageFormat.format(getCategoryEndpoint, SpotifySongsCategory.ROCK);
-		ResponseEntity<CategoryDTO> response = spotifyGetCategory(url);
+		ResponseEntity<CategoryDTO> response = spotifyGetCategory(SpotifySongsCategory.ROCK);
 		
-		assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
+		assertThat(response.getStatusCode(), is(equalTo(HttpStatus.OK)));
+		assertThat(response.getBody().getId(), is(equalTo(SpotifySongsCategory.ROCK.toString())));
 	}
 	
 	@Test
 	public void shouldExistClassicalCategory() {
-		String url = MessageFormat.format(getCategoryEndpoint, SpotifySongsCategory.CLASSICAL);
-		ResponseEntity<CategoryDTO> response = spotifyGetCategory(url);
+		ResponseEntity<CategoryDTO> response = spotifyGetCategory(SpotifySongsCategory.CLASSICAL);
 		
-		assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
+		assertThat(response.getStatusCode(), is(equalTo(HttpStatus.OK)));
+		assertThat(response.getBody().getId(), is(equalTo(SpotifySongsCategory.CLASSICAL.toString())));
 	}
 	
 	@Test
 	public void shouldExistHipHopCategory() {
-		String url = MessageFormat.format(getCategoryEndpoint, SpotifySongsCategory.HIP_HOP);
-		ResponseEntity<CategoryDTO> response = spotifyGetCategory(url);
+		ResponseEntity<CategoryDTO> response = spotifyGetCategory(SpotifySongsCategory.HIP_HOP);
 		
-		assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
+		assertThat(response.getStatusCode(), is(equalTo(HttpStatus.OK)));
+		assertThat(response.getBody().getId(), is(equalTo(SpotifySongsCategory.HIP_HOP.toString())));
 	}
 	
 	@Test
 	public void shouldExistPartyCategory() {
-		String url = MessageFormat.format(getCategoryEndpoint, SpotifySongsCategory.PARTY);
-		ResponseEntity<CategoryDTO> response = spotifyGetCategory(url);
+		ResponseEntity<CategoryDTO> response = spotifyGetCategory(SpotifySongsCategory.PARTY);
 		
-		assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
+		assertThat(response.getStatusCode(), is(equalTo(HttpStatus.OK)));
+		assertThat(response.getBody().getId(), is(equalTo(SpotifySongsCategory.PARTY.toString())));
 	}
 	
-	private ResponseEntity<CategoryDTO> spotifyGetCategory(String url) {
+	private ResponseEntity<CategoryDTO> spotifyGetCategory(SpotifySongsCategory songCategory) {
+		String url = MessageFormat.format(getCategoryEndpoint, songCategory);
+		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setBearerAuth(this.bearerToken);
 		HttpEntity<String> entity = new HttpEntity<>(headers);
@@ -143,7 +145,7 @@ public class SpotifyContractTest {
 		String url = MessageFormat.format(getCategoryPlaylistsEndpoint, SpotifySongsCategory.PARTY);
 		ResponseEntity<CategoryPlaylistsDTO> response = spotifyGetPlaylist(url);
 		
-		assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
+		assertThat(response.getStatusCode(), is(equalTo(HttpStatus.OK)));
 	}
 	
 	private ResponseEntity<CategoryPlaylistsDTO> spotifyGetPlaylist(String url) {
@@ -169,7 +171,7 @@ public class SpotifyContractTest {
 			String url = MessageFormat.format(getPlaylistTracksEndpoint, playlistId);
 			ResponseEntity<PlaylistTracksDTO> response = spotifyGetPlaylistTracks(url);
 			
-			assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));			
+			assertThat(response.getStatusCode(), is(equalTo(HttpStatus.OK)));			
 		}
 	}
 	

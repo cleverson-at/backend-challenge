@@ -37,14 +37,14 @@ public class OpenWeatherMapContractTest {
 	public void shouldExistsGetLocalWeather() {
 		ResponseEntity<CityWeatherDTO> response = getLocalWeather(CITY_NAME);
 		
-		assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
+		assertThat(response.getStatusCode(), is(equalTo(HttpStatus.OK)));
 	}
 	
 	@Test
 	public void shouldUnmarshalTemperature() {
 		ResponseEntity<CityWeatherDTO> response = getLocalWeather(CITY_NAME);
 		
-		assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
+		assertThat(response.getStatusCode(), is(equalTo(HttpStatus.OK)));
 		assertThat(response.getBody().getMain().getTemp(), is(notNullValue()));
 	}
 	
