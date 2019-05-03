@@ -8,7 +8,9 @@ import org.springframework.context.annotation.PropertySource;
 @ComponentScan(basePackages = "com.widesoftware.backendchallenge")
 @PropertySource(value= {"classpath:properties/application.properties", 
 		"classpath:properties/spotify.properties",
-		"../../../../../credentials/spotify.credentials.properties"})
+		"classpath:properties/openweathermap.properties",
+		"../../../../../credentials/spotify.credentials.properties",
+		"../../../../../credentials/openweathermap.credentials.properties"})
 public class AppConfig {
 
 }

@@ -29,29 +29,27 @@ import static org.hamcrest.text.IsEmptyString.emptyOrNullString;
 
 import java.text.MessageFormat;
 
-import lombok.Getter;
-
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class SpotifyContractTest {
 
 	@Value("${endpoints.authenticate}")
-	@Getter private String authenticate;
+	private String authenticate;
 	
 	@Value("${authentication.client.id}")
-	@Getter private String clientId;
+	private String clientId;
 	
 	@Value("${authentication.client.secret}")
-	@Getter private String clientSecret;
+	private String clientSecret;
 	
 	@Value("${endpoints.resource.browse.category}")
-	@Getter private String getCategoryEndpoint;
+	private String getCategoryEndpoint;
 	
 	@Value("${endpoints.resource.browse.category.playlists}")
-	@Getter private String getCategoryPlaylistsEndpoint;
+	private String getCategoryPlaylistsEndpoint;
 	
 	@Value("${endpoints.resource.playlist.tracks}")
-	@Getter private String getPlaylistTracksEndpoint;
+	private String getPlaylistTracksEndpoint;
 	
 	private String bearerToken;
 	
