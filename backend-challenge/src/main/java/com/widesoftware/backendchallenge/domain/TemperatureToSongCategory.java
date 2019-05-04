@@ -25,7 +25,7 @@ public class TemperatureToSongCategory {
 			throw new IllegalArgumentException();
 		}
 		
-		logger.info("Temperature convertion to song category request received. "
+		logger.debug("Temperature convertion to song category request received. "
 				+ "Temperture: {} -> Song category: {}.", temperature, songsCategory);
 		return songsCategory;
 	}

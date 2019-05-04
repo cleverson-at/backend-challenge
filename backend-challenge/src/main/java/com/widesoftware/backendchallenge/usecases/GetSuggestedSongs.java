@@ -39,7 +39,7 @@ public class GetSuggestedSongs {
 		SongsCategory songsCategory = temperatureToSongCategory.convert(temperature);
 		Songs songs = getSongsGateway.execute(songsCategory);
 		
-		logger.info("Songs suggestion request received for {} city. "
+		logger.debug("Songs suggestion request received for {} city. "
 				+ "Suggested song are: {}", cityName, songs);
 		return songs;
 	}
