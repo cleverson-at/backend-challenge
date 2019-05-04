@@ -39,7 +39,6 @@ public class AppValidationTest {
 		ResponseEntity<SuggestedSongsDTO> response = requestSongs(CITY_NAME);
 		
 		assertThat(response.getStatusCode(), is(equalTo(HttpStatus.OK)));
-		assertThat(response.getBody().getCategory(), is(notNullValue()));
 		assertThat(response.getBody().getNames(), is(notNullValue()));
 		
 		response.getBody().getNames().forEach(name -> assertThat(name, is(notNullValue())));

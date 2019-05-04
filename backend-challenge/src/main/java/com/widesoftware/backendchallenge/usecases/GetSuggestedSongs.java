@@ -7,8 +7,12 @@ import com.widesoftware.backendchallenge.gateways.GetSongsGateway;
 import com.widesoftware.backendchallenge.gateways.GetTemperatureGateway;
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;;
 
+@Component
 public class GetSuggestedSongs {
 	
 	private Logger logger = LoggerFactory.getLogger(GetSuggestedSongs.class);
@@ -18,9 +22,11 @@ public class GetSuggestedSongs {
 	
 	private TemperatureToSongCategory temperatureToSongCategory;
 	
-	public GetSuggestedSongs(GetTemperatureGateway getTemperatureGateway, 
+	@Autowired
+	public GetSuggestedSongs(
+			@Qualifier("getTemperatureOpenWeatherMap") GetTemperatureGateway getTemperatureGateway, 
 			TemperatureToSongCategory temperatureToSongCategory,
-			GetSongsGateway getSongsGateway) {
+			@Qualifier("getSongsSpotify") GetSongsGateway getSongsGateway) {
 		
 		this.getTemperatureGateway = getTemperatureGateway;
 		this.getSongsGateway = getSongsGateway;

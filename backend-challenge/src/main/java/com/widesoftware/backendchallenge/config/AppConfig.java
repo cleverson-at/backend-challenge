@@ -9,8 +9,8 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource(value= {"classpath:properties/application.properties", 
 		"classpath:properties/spotify.properties",
 		"classpath:properties/openweathermap.properties",
-		"../../../../../credentials/spotify.credentials.properties",
-		"../../../../../credentials/openweathermap.credentials.properties"})
+		"file:${CREDENTIALS_PATH}/spotify.credentials.properties",
+		"file:${CREDENTIALS_PATH}/openweathermap.credentials.properties"})
 public class AppConfig {
 
 }

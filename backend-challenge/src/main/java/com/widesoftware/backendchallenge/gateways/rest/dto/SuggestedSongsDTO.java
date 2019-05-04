@@ -13,6 +13,5 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode
 @Accessors(chain=true)
 public class SuggestedSongsDTO {
-	@Getter @Setter private String category;
 	@Getter @Setter private Set<String> names = new HashSet<String>();
 }
