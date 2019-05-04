@@ -1,4 +1,9 @@
-package com.widesoftware.backendchallenge;
+package com.widesoftware.backendchallenge.gateways.rest;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.text.MessageFormat;
 
@@ -11,16 +16,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import com.widesoftware.backendchallenge.gateways.rest.dto.SuggestedSongsDTO;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
-public class AppValidationTest {
+@RunWith(SpringRunner.class)
+public class RestValidationTest {
 
 	public static final String CITY_NAME = "Campinas";
 	
