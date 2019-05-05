@@ -14,6 +14,7 @@ Backend challenge utiliza várias tecnologias para funcionar:
   - [Mockito] - o Test Double framework!
   - [Cucumber] - o Behaviour Test framework utilizado para BDD!
   - [SLF4J] - o Logging framework!
+  - [Lombok] - para diminuir a escrita de boilerplate code
   - [Docker] - o Enterprise Container Application!
   - [Git] - o Version Control System!
 
@@ -57,16 +58,16 @@ Em linhas gerais é possível afirmar que a aplicação é dividida em três cam
 
   - Gateways - Camada de comunicação com o mundo externo. Nenhuma outra camada pode depender dessa camada, portando o princípio SOLID de Dependency Inversion é aplicado. Para clareza suas funcionalidades são aqui implementadas utilizando o Command Pattern. Quando diz respeito a uma third-party API, foi desenvolvida utilizando [Contract Tests] para garantia de que a API ainda continua como esperado e [Test Doubles] para permitir que os testes sejam feitos utilizando uma intância local da API;
 
-  - Use Cases -- Camada de casos de uso. Essa camada depende do model mas não pode depender dos gateways. Foi desenvolvida utilizando BDD. Para clareza suas funcionalidades são aqui implementadas utilizando o Command Pattern;
+  - Use Cases - Camada de casos de uso. Essa camada depende do model mas não pode depender dos gateways. Foi desenvolvida utilizando BDD. Para clareza suas funcionalidades são aqui implementadas utilizando o Command Pattern;
 
-  - Model -- Camada de modelagem de todas as entidades (entities) que armazenarão as informações e todas as regras de negócio (domain). Todas as outras camadas dependem dela mas ela não pode depender de ninguém. Foi desenvolvida com TDD. Essa é a principal camada;
+  - Model - Camada de modelagem de todas as entidades (entities) que armazenarão as informações e todas as regras de negócio (domain). Todas as outras camadas dependem dela mas ela não pode depender de ninguém. Foi desenvolvida com TDD. Essa é a principal camada;
 
 # Testes
 ## Validation Tests
-Foram feitos testes que efetuam HTTP requests de forma analoga ao que uma aplicação cliente irá fazer. Devido a isso para que todos os testes executem com sucesso é necessária uma instância as aplicação em execução.
+Foram feitos testes que efetuam HTTP requests de forma analoga ao que uma aplicação cliente irá fazer. Devido a isso para que todos os testes executem com sucesso é necessária uma instância da aplicação em execução.
 
 ## Integration Tests
-Foram feitos testes que efetuam invoções dos geteways. Os gateways irão por sua vez invocar os [Test Doubles]. Devido a isso para que todos os testes executem com sucesso é necessária uma instância de cada um dos Test Doubles em execução. Os [Contract Tests] garantem que o Test Double é uma representação utilitáriamente identica do provedor real.
+Foram feitos testes que efetuam invoções dos geteways. Os gateways irão por sua vez invocar os [Test Doubles]. Devido a isso para que todos os testes executem com sucesso é necessária uma instância de cada um dos Test Doubles em execução. Os [Contract Tests] garantem que o Test Double é uma representação utilitariamente identica do provedor real.
 
 ## Unit Tests
 Foram efetuados testes unitários ao Estilo TDD no domain e no estilo BDD nos use cases.
