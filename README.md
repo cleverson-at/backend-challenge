@@ -114,10 +114,7 @@ sudo docker run -v /home/user/Documents/credentials:/credentials -it -p 8090:809
 ```
 No volume informe o endereço em que se encontram as credenciais do Spotify e do OpenWeatherMap. Elas foram externalizadas por questão de segurança e devem estar no formato descrito na seção Credenciais acima.
 
-# Endpoint
-```
-GET http://localhost:8090/suggestedsongs/{city-name}
-```
+# Endpoints
 Para acessar a documentação completa, com a aplicação em execução, acesse: http://localhost:8090/swagger-ui.html
 
    [Java]: <https://www.oracle.com/java/>
