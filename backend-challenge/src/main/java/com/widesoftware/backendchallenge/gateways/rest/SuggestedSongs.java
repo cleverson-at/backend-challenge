@@ -3,16 +3,25 @@ package com.widesoftware.backendchallenge.gateways.rest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.widesoftware.backendchallenge.entities.Songs;
 import com.widesoftware.backendchallenge.gateways.rest.dto.SuggestedSongsDTO;
 import com.widesoftware.backendchallenge.usecases.GetSuggestedSongs;
 
-@Controller
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.ApiResponse;
+
+@RestController
+@RequestMapping(path="/api/suggested-songs")
+@Api(value="SuggestedSongControllerAPI", produces=MediaType.APPLICATION_JSON_VALUE)
 public class SuggestedSongs {
 
 	private Logger logger = LoggerFactory.getLogger(SuggestedSongs.class);
@@ -20,9 +29,10 @@ public class SuggestedSongs {
 	@Autowired
 	private GetSuggestedSongs getSuggestedSongs;
 	
-	@GetMapping("/suggestedsongs/{cityName}")
-	@ResponseBody
-	public SuggestedSongsDTO getSuggestedSongs(@PathVariable String cityName) {
+	@RequestMapping(path = "/{cityName}", method = RequestMethod.GET, produces = "application/json")
+    @ApiOperation("Gets the suggested songs accordingly with the temperature on the city")
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "OK", response = SuggestedSongsDTO.class)})
+	public SuggestedSongsDTO getSuggestedSongs(@ApiParam(value = "The name of the city", required = true) @PathVariable String cityName) {
 		Songs songs = getSuggestedSongs.execute(cityName);
 		SuggestedSongsDTO suggestedSongs = songsToSuggestedSongsDTO(songs);
 		

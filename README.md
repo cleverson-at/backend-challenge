@@ -14,7 +14,8 @@ Backend challenge utiliza várias tecnologias para funcionar:
   - [Mockito] - o Test Double framework!
   - [Cucumber] - o Behaviour Test framework utilizado para BDD!
   - [SLF4J] - o Logging framework!
-  - [Lombok] - para diminuir a escrita de boilerplate code
+  - [Lombok] - para diminuir a escrita de boilerplate code!
+  - [Swagger] - para documentar a API!
   - [Docker] - o Enterprise Container Application!
   - [Git] - o Version Control System!
 
@@ -117,6 +118,7 @@ No volume informe o endereço em que se encontram as credenciais do Spotify e do
 ```
 GET http://localhost:8090/suggestedsongs/{city-name}
 ```
+Para acessar a documentação completa, com a aplicação em execução, acesse: http://localhost:8090/swagger-ui.html
 
    [Java]: <https://www.oracle.com/java/>
    [Spring]: <https://spring.io>
@@ -126,6 +128,8 @@ GET http://localhost:8090/suggestedsongs/{city-name}
    [Mockito]: <https://site.mockito.org/>
    [Cucumber]: <https://cucumber.io/>
    [SLF4J]: <https://www.slf4j.org/>
+   [Lombok]: <https://projectlombok.org/>
+   [Swagger]: <https://swagger.io/>
    [Docker]: <https://www.docker.com/>
    [Git]: <https://git-scm.com/>
    
