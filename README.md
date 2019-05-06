@@ -1,5 +1,5 @@
 # Backend Challenge
-[![Wide Software Logo](https://raw.githubusercontent.com/cleverson-at/backend-challenge/feature-000000-song-advisor/static/wide-software-logo.png)](https://www.widesoftware.com.br)    [![Docker Hub Logo](https://raw.githubusercontent.com/cleverson-at/backend-challenge/feature-000000-song-advisor/static/docker-hub-logo.png)](https://hub.docker.com/r/cleversonteotonio/backend-challenge)
+[![Wide Software Logo](https://i.imgur.com/JTOrrNK.png)](https://www.widesoftware.com.br)    [![Docker Hub Logo](https://i.imgur.com/feXNJr2.png)](https://hub.docker.com/r/cleversonteotonio/backend-challenge)
 
 Esta aplicação foi feita como parte do processo seletivo da Wide Software. Ela está disponível como um docker container, para acessa-lo simplesmente clique no ícone do Docker Hub acima. Abaixo segue a descrição da arquitetura básica da aplicação, assim como a discriminação dos princípios que embasam as decisões técnicas tomadas no processo de desenvolvimento da mesma.
 
