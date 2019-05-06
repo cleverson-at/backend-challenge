@@ -50,12 +50,6 @@ public class GetSongsSpotify implements GetSongsGateway {
 	
 	private String bearerToken;
 
-	private void authenticate() {
-		String exceptionMessage = "It wasn't possible to authenticate.";
-		AuthenticationDTO auth = performHttpRequest(this::requestAuthentication, exceptionMessage);
-		this.bearerToken = auth.getAccess_token();
-	}
-	
 	@Override
 	public Songs execute(SongsCategory category) {
 		CategoryPlaylistsDTO categoryPlaylists = getCategoryPlaylists(systemToSpotifySongCategory(category));
@@ -66,19 +60,6 @@ public class GetSongsSpotify implements GetSongsGateway {
 		}
 		
 		return new Songs(category, names);
-	}
-	
-	private void addSongsFromPlaylist(Set<String> names, PlaylistDTO playlist) {
-		String playlistId = playlist.getId();
-		PlaylistTracksDTO playlistTracks = getPlaylistTracks(playlistId);
-		
-		if (!playlistTracks.getItems().isEmpty()) {
-			names.addAll(getSongsFromItems(names, playlistTracks.getItems()));
-		}
-	}
-	
-	private Set<String> getSongsFromItems(Set<String> names, List<ItemDTO> items) {
-		return items.stream().map(item -> item.getTrack().getName()).collect(Collectors.toSet());
 	}
 	
 	private SpotifySongsCategory systemToSpotifySongCategory(SongsCategory systemCategory) {
@@ -97,26 +78,23 @@ public class GetSongsSpotify implements GetSongsGateway {
 		return categoryPlaylists;
 	}
 	
+	private void addSongsFromPlaylist(Set<String> names, PlaylistDTO playlist) {
+		String playlistId = playlist.getId();
+		PlaylistTracksDTO playlistTracks = getPlaylistTracks(playlistId);
+		
+		if (!playlistTracks.getItems().isEmpty()) {
+			names.addAll(getSongsFromItems(names, playlistTracks.getItems()));
+		}
+	}
+	
 	private PlaylistTracksDTO getPlaylistTracks(String playlistId) {
 		String exceptionMessage = "It wasn't possible to get the tracks from the playlist";
 		PlaylistTracksDTO playlistTracks = performAuthenticatedHttpRequest(this::requestPlaylistTracks, playlistId, exceptionMessage);
 		return playlistTracks;
 	}
 	
-	private ResponseEntity<AuthenticationDTO> requestAuthentication() {
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-		headers.setBasicAuth(clientId, clientSecret);
-		
-		MultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
-		body.add("grant_type", "client_credentials");
-		
-		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(body, headers);
-
-		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<AuthenticationDTO> response = restTemplate.postForEntity(this.authenticate, request, AuthenticationDTO.class);
-		
-		return response;
+	private Set<String> getSongsFromItems(Set<String> names, List<ItemDTO> items) {
+		return items.stream().map(item -> item.getTrack().getName()).collect(Collectors.toSet());
 	}
 	
 	private ResponseEntity<CategoryPlaylistsDTO> requestCategoryPlaylists(SpotifySongsCategory songCategory) {
@@ -171,6 +149,28 @@ public class GetSongsSpotify implements GetSongsGateway {
 		} else {
 			throw new RuntimeException(exceptionMessage);
 		}
+	}
+	
+	private void authenticate() {
+		String exceptionMessage = "It wasn't possible to authenticate.";
+		AuthenticationDTO auth = performHttpRequest(this::requestAuthentication, exceptionMessage);
+		this.bearerToken = auth.getAccess_token();
+	}
+	
+	private ResponseEntity<AuthenticationDTO> requestAuthentication() {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+		headers.setBasicAuth(clientId, clientSecret);
+		
+		MultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
+		body.add("grant_type", "client_credentials");
+		
+		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(body, headers);
+
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<AuthenticationDTO> response = restTemplate.postForEntity(this.authenticate, request, AuthenticationDTO.class);
+		
+		return response;
 	}
 	
 }
