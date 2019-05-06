@@ -141,15 +141,15 @@ public class SpotifyContractTest {
 	}
 	
 	@Test
-	public void shouldExistsGetPlaylist() {
-		ResponseEntity<CategoryPlaylistsDTO> response = spotifyGetPlaylist(SpotifySongsCategory.PARTY);
+	public void shouldExistsGetCategoryPlaylists() {
+		ResponseEntity<CategoryPlaylistsDTO> response = spotifyGetCategoryPlaylists(SpotifySongsCategory.PARTY);
 		
 		assertThat(response.getStatusCode(), is(equalTo(HttpStatus.OK)));
 	}
 	
 	@Test
-	public void shouldUnmarshalPalylistId() {
-		ResponseEntity<CategoryPlaylistsDTO> response = spotifyGetPlaylist(SpotifySongsCategory.PARTY);
+	public void shouldUnmarshalPlaylistId() {
+		ResponseEntity<CategoryPlaylistsDTO> response = spotifyGetCategoryPlaylists(SpotifySongsCategory.PARTY);
 		
 		assertThat(response.getStatusCode(), is(equalTo(HttpStatus.OK)));
 		
@@ -159,7 +159,7 @@ public class SpotifyContractTest {
 		}
 	}
 	
-	private ResponseEntity<CategoryPlaylistsDTO> spotifyGetPlaylist(SpotifySongsCategory songCategory) {
+	private ResponseEntity<CategoryPlaylistsDTO> spotifyGetCategoryPlaylists(SpotifySongsCategory songCategory) {
 		String url = MessageFormat.format(getCategoryPlaylistsEndpoint, songCategory);
 		
 		HttpHeaders headers = new HttpHeaders();
@@ -174,7 +174,7 @@ public class SpotifyContractTest {
 	
 	@Test
 	public void shouldExistsGetPlaylistTracks() {
-		ResponseEntity<CategoryPlaylistsDTO> playlistsResponse = spotifyGetPlaylist(SpotifySongsCategory.PARTY);
+		ResponseEntity<CategoryPlaylistsDTO> playlistsResponse = spotifyGetCategoryPlaylists(SpotifySongsCategory.PARTY);
 		assertThat(playlistsResponse.getStatusCode(), equalTo(HttpStatus.OK));
 		
 		if (!playlistsResponse.getBody().getPlaylists().getItems().isEmpty()) {
@@ -187,7 +187,7 @@ public class SpotifyContractTest {
 	
 	@Test
 	public void shouldUnmarshalTrackNames() {
-		ResponseEntity<CategoryPlaylistsDTO> playlistsResponse = spotifyGetPlaylist(SpotifySongsCategory.PARTY);
+		ResponseEntity<CategoryPlaylistsDTO> playlistsResponse = spotifyGetCategoryPlaylists(SpotifySongsCategory.PARTY);
 		assertThat(playlistsResponse.getStatusCode(), equalTo(HttpStatus.OK));
 		
 		if (!playlistsResponse.getBody().getPlaylists().getItems().isEmpty()) {
@@ -198,7 +198,7 @@ public class SpotifyContractTest {
 			
 			assertThat(response.getBody().getItems(), is(notNullValue()));
 			if (!response.getBody().getItems().isEmpty()) {
-				assertThat(response.getBody().getItems().get(0).getTrack().getName(), is(notNullValue()));
+				response.getBody().getItems().forEach(item -> assertThat(item.getTrack().getName(), is(notNullValue())));
 			}
 		}
 	}
