@@ -5,7 +5,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
-import com.widesoftware.backendchallenge.gateways.rest.SuggestedSongs;
+import com.widesoftware.backendchallenge.gateways.rest.SuggestedSongsController;
 
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -16,7 +16,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @EnableSwagger2
 @Configuration
-@ComponentScan(basePackageClasses = SuggestedSongs.class)
+@ComponentScan(basePackageClasses = SuggestedSongsController.class)
 @PropertySource("classpath:properties/swagger.properties")
 public class SwaggerConfig {
 

@@ -21,10 +21,10 @@ import io.swagger.annotations.ApiResponse;
 
 @RestController
 @RequestMapping(path="/api/suggested-songs")
-@Api(value="SuggestedSongControllerAPI", produces=MediaType.APPLICATION_JSON_VALUE)
-public class SuggestedSongs {
+@Api(value="SuggestedSongsControllerAPI", produces=MediaType.APPLICATION_JSON_VALUE)
+public class SuggestedSongsController {
 
-	private Logger logger = LoggerFactory.getLogger(SuggestedSongs.class);
+	private Logger logger = LoggerFactory.getLogger(SuggestedSongsController.class);
 	
 	@Autowired
 	private GetSuggestedSongs getSuggestedSongs;
