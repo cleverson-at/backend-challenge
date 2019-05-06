@@ -1,4 +1,4 @@
-package com.widesoftware.backendchallenge.gateways.rest.dto;
+package com.widesoftware.backendchallenge.gateways.rest.dtos;
 
 import java.util.HashSet;
 import java.util.Set;

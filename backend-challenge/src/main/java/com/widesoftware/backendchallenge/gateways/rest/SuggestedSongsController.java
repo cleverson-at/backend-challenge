@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.widesoftware.backendchallenge.entities.Songs;
-import com.widesoftware.backendchallenge.gateways.rest.dto.SuggestedSongsDTO;
+import com.widesoftware.backendchallenge.gateways.rest.dtos.SuggestedSongsDTO;
 import com.widesoftware.backendchallenge.usecases.GetSuggestedSongs;
 
 import io.swagger.annotations.Api;

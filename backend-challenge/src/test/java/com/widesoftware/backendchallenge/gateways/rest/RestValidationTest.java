@@ -16,7 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
-import com.widesoftware.backendchallenge.gateways.rest.dto.SuggestedSongsDTO;
+import com.widesoftware.backendchallenge.gateways.rest.dtos.SuggestedSongsDTO;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
